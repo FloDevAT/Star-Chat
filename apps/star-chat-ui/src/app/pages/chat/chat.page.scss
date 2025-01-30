@@ -1,46 +1,52 @@
-.login-container {
+.chat-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   height: 100vh;
   background-color: #1a1a1a;
   color: #a855f7;
+  padding: 20px;
 }
 
-.login-title {
-  font-size: 2rem;
-  font-weight: bold;
-  margin-bottom: 1.5rem;
+.chat-messages {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 10px;
 }
 
-.login-input {
+.chat-input-container {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  background-color: #2a2a2a;
+  border-radius: 8px;
+}
+
+.chat-input {
+  flex-grow: 1;
   padding: 10px;
   border-radius: 8px;
   background-color: #2a2a2a;
   border: 1px solid #a855f7;
   color: #fff;
-  width: 300px;
   outline: none;
 }
 
-.login-input:focus {
+.chat-input:focus {
   border-color: #d8b4fe;
 }
 
-.login-button {
-  margin-top: 1rem;
+.chat-send-button {
   padding: 10px;
   background-color: #a855f7;
   border: none;
   border-radius: 8px;
   color: white;
   font-size: 1rem;
-  width: 300px;
   cursor: pointer;
   transition: background 0.3s ease;
 }
 
-.login-button:hover {
+.chat-send-button:hover {
   background-color: #9333ea;
 }

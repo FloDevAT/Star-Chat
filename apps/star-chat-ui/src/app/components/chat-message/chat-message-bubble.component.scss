@@ -1,0 +1,39 @@
+.message-container {
+  display: flex;
+  justify-content: flex-start;
+  margin: 5px 0;
+}
+
+.own-message {
+  justify-content: flex-end;
+}
+
+.message-bubble {
+  max-width: 60%;
+  padding: 10px;
+  border-radius: 10px;
+  word-wrap: break-word;
+  color: white;
+}
+
+.own-message .message-bubble {
+  padding: 10px;
+  padding-top: 5px;
+  background-color: #7c3aed;
+  text-align: right;
+}
+
+.other-message .message-bubble {
+  background-color: #2a2a2a;
+}
+
+.message-username {
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: #d1d5db;
+  display: block;
+}
+
+.message-text {
+  margin-top: 5px;
+}

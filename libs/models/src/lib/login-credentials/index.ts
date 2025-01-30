@@ -1,1 +1,1 @@
-export { LoginCredentials, verifyLoginCredentialsType } from './login-credentials.model';
+export * from './login-credentials.model';

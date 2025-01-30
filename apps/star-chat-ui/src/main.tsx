@@ -1,7 +1,7 @@
 import { StrictMode } from 'react';
 import * as ReactDOM from 'react-dom/client';
-import App from './app/app';
 import { LoginPage } from './app/pages';
+import { ChatPage } from './app/pages/chat/chat.page';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -9,6 +9,6 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <StrictMode>
-    <LoginPage />
+    <ChatPage />
   </StrictMode>
 );
