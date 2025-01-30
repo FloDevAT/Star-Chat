@@ -29,7 +29,7 @@ export class AuthService {
     try {
       jwt.verify(token, process.env.JWT_SECRET);
       return true;
-    } catch (error) {
+    } catch {
       return false;
     }
   }

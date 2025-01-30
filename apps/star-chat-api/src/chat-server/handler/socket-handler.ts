@@ -32,9 +32,6 @@ export class SocketHandler {
     }
   }
 
-  private onLeave = () => {
-
-  }
 
   private broadcastMessage(sender: string, msg: string): void {
     const chatMessage: ChatMessage = {

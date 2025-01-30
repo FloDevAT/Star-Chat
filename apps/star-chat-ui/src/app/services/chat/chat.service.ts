@@ -1,14 +1,17 @@
 import { RawData } from 'ws';
 import { ChatMessage, MessageType, UserMessage } from '@star-chat/models';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 export class ChatService {
   private static instance: ChatService;
   private ws: WebSocket;
 
-  private sendHandler: (msg: ChatMessage) => void = () => { };
-  protected closeHandler: () => void = () => { };
+  private sendHandler: (msg: ChatMessage) => void = () => {
+    throw new Error('NOT IMPLEMENTED');
+  };
+
+  protected closeHandler: () => void = () => {
+    throw new Error('NOT IMPLEMENTED');
+  };
 
   public connect(token: string) {
     console.log(token);

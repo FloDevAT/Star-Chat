@@ -1,7 +1,6 @@
 import express, { Request, Response } from 'express';
 import { verifyLoginCredentialsType } from '@star-chat/models';
 import { AuthService } from '../../services';
-import { b } from 'vitest/dist/suite-IbNSsUWN';
 
 const authRouter = express.Router();
 
