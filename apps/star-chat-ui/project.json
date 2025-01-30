@@ -1,0 +1,9 @@
+{
+  "name": "star-chat-ui",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/star-chat-ui/src",
+  "projectType": "application",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project star-chat-ui --web",
+  "targets": {}
+}
