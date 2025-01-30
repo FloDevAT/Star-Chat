@@ -12,9 +12,9 @@ authRouter.post('/login', (req: Request, res: Response) => {
     const authService: AuthService = AuthService.getInstance();
 
     try {
-      authService.login(body.username);
+      const token = authService.login(body.username);
       res.status(201).json({
-        msg: 'Logged in successfully!'
+        token: token
       })
     } catch (e) {
       res.status(401).json({

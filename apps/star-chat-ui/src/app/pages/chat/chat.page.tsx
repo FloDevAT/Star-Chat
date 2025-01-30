@@ -3,17 +3,24 @@ import { ChatMessage } from '@star-chat/models';
 import { ChatService } from '../../services/chat/chat.service';
 import { ChatMessageBubble } from '../../components';
 import './chat.page.scss';
+import { useNavigate } from 'react-router-dom';
 
 export const ChatPage: React.FC = () => {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [typedMessage, setTypedMessage] = useState<string>('');
+  const nav = useNavigate();
 
   const onAddMessage = (msg: ChatMessage) => {
     setMessages([...messages, msg]);
   };
 
+  const onDisconnect = () => {
+    nav('/');
+  }
+
   const chatService = ChatService.getInstance();
-  chatService.setHandler(onAddMessage);
+  chatService.setSendHandler(onAddMessage);
+  chatService.setCloseHandler(onDisconnect);
 
   const onSendMessage = () => {
     const msg: ChatMessage = {

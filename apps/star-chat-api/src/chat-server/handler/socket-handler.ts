@@ -1,9 +1,12 @@
 import { ChatMessage, MessageType, UserMessage, UserSocket, verifyUserMessageType } from '@star-chat/models';
+import { AuthService } from '../../services';
 
 export class SocketHandler {
   private readonly clients: Set<UserSocket> = new Set();
 
   public addSocket(userSocket: UserSocket): void {
+    const authService = AuthService.getInstance();
+
     this.clients.add(userSocket);
 
     userSocket.socket.on('message', (message) => {
@@ -15,6 +18,10 @@ export class SocketHandler {
         this.handleUserMessage(userSocket, parsedObj);
       }
     })
+
+    userSocket.socket.on('close', () => {
+      authService.logout(userSocket.username);
+    })
   }
 
   private handleUserMessage(socket: UserSocket, message: UserMessage): void {
@@ -23,6 +30,10 @@ export class SocketHandler {
         this.broadcastMessage(socket.username, message.content);
         break;
     }
+  }
+
+  private onLeave = () => {
+
   }
 
   private broadcastMessage(sender: string, msg: string): void {

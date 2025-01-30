@@ -5,14 +5,16 @@
   "scripts": {
     "start:star-chat-api": "nx serve star-chat-api",
     "start:star-chat-ui": "nx serve star-chat-ui",
-    "start:star-chat": "concurrently -c blue,red -n UI,API \"npm run start:star-chat-ui\" \"start:star-chat-api\""
+    "start:star-chat": "concurrently -c blue,red -n UI,API \"npm run start:star-chat-ui\" \"npm run start:star-chat-api\""
   },
   "private": true,
   "dependencies": {
     "@types/cors": "^2.8.17",
+    "@types/dotenv": "^6.1.1",
     "@types/jsonwebtoken": "^9.0.8",
     "axios": "^1.6.0",
     "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
     "react": "19.0.0",

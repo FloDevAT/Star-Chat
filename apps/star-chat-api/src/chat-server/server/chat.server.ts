@@ -1,6 +1,7 @@
 import { WebSocketServer, WebSocket } from 'ws';
 import { SocketHandler } from '../handler';
 import * as url from 'node:url';
+import { AuthService } from '../../services';
 
 export class ChatServer {
   private wss: WebSocketServer;
@@ -23,18 +24,20 @@ export class ChatServer {
 
     this.wss.on('connection', (ws: WebSocket, req) => {
       console.log('client connected to server!');
-      const username = url.parse(req.url, true).query.username;
+      const token = url.parse(req.url, true).query.token as string;
 
-      if ((typeof username) === 'string') {
+      const authService = AuthService.getInstance();
+      const valid = authService.verifyToken(token)
+
+      if (valid) {
+        const username = authService.getUsernameFromToken(token);
         this.handler.addSocket({
-          username: username as string,
+          username: username,
           socket: ws
         });
+      } else {
+        ws.close()
       }
-
-
     })
   }
-
-
 }

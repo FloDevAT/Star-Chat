@@ -1,18 +1,26 @@
 import { RawData } from 'ws';
 import { ChatMessage, MessageType, UserMessage } from '@star-chat/models';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export class ChatService {
   private static instance: ChatService;
   private ws: WebSocket;
 
-  private handler: (msg: ChatMessage) => void = () => { };
+  private sendHandler: (msg: ChatMessage) => void = () => { };
+  protected closeHandler: () => void = () => { };
 
-  public connect(username: string) {
-    this.ws = new WebSocket('ws://localhost:8766?username=' + username);
+  public connect(token: string) {
+    console.log(token);
+    this.ws = new WebSocket('ws://localhost:8765?token=' + token);
+
     this.ws.addEventListener('message', (event => {
       this.onReceiveMessage(event.data);
     }))
+
+    this.ws.addEventListener('close', () => {
+      this.onSessionClose();
+    })
   }
 
   public sendMessage(msg: string) {
@@ -29,13 +37,24 @@ export class ChatService {
   private onReceiveMessage(msg: RawData) {
     const msgStr = msg.toString();
     const chatMessage: ChatMessage = JSON.parse(msgStr);
-    this.handler(chatMessage);
+    this.sendHandler(chatMessage);
   }
 
-  public setHandler(
+  private onSessionClose() {
+    this.closeHandler();
+  }
+
+
+  public setSendHandler(
     handler: (msg: ChatMessage) => void
   ) {
-    this.handler = handler;
+    this.sendHandler = handler;
+  }
+
+  public setCloseHandler(
+    handler: () => void
+  ) {
+    this.closeHandler = handler;
   }
 
   public static getInstance(): ChatService {
