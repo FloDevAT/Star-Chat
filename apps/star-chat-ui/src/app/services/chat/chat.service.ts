@@ -8,8 +8,8 @@ export class ChatService {
 
   private handler: (msg: ChatMessage) => void = () => { };
 
-  constructor() {
-    this.ws = new WebSocket('ws://localhost:8766?username=florian');
+  public connect(username: string) {
+    this.ws = new WebSocket('ws://localhost:8766?username=' + username);
     this.ws.addEventListener('message', (event => {
       this.onReceiveMessage(event.data);
     }))
