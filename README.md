@@ -13,7 +13,7 @@ To run this application, follow these steps:
 1. Install all dependencies:
 
 ```bash
-   npm install
+npm install
 ```
 
 2. Create a `.env` file in the root of the project
@@ -27,7 +27,7 @@ API_PORT=3333
 3. Start both the frontend and backend services:
 
 ```bash
-   npm run start:star-chat
+npm run start:star-chat
 ```
 
 ## Security Considerations
