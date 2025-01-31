@@ -44,3 +44,8 @@
 .login-button:hover {
   background-color: #9333ea;
 }
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+}

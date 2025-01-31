@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FormEvent, useState } from 'react';
 import { ChatMessage } from '@star-chat/models';
 import { ChatService } from '../../services/chat/chat.service';
 import { ChatMessageBubble } from '../../components';
@@ -22,7 +22,9 @@ export const ChatPage: React.FC = () => {
   chatService.setSendHandler(onAddMessage);
   chatService.setCloseHandler(onDisconnect);
 
-  const onSendMessage = () => {
+  const onSendMessage = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
     const msg: ChatMessage = {
       username: 'florian',
       content: typedMessage
@@ -44,18 +46,22 @@ export const ChatPage: React.FC = () => {
         ))}
       </div>
 
-      <div className="chat-input-container">
-        <input
-          type="text"
-          value={typedMessage}
-          onChange={(e) => setTypedMessage(e.target.value)}
-          className="chat-input"
-          placeholder="Type a message..."
-        />
-        <button onClick={onSendMessage} className="chat-send-button">
-          Send Message
-        </button>
-      </div>
+      <form onSubmit={onSendMessage}>
+        <div className="chat-input-container">
+          <input
+            type="text"
+            value={typedMessage}
+            onChange={(e) => setTypedMessage(e.target.value)}
+            className="chat-input"
+            placeholder="Type a message..."
+          />
+          <input
+            type="submit"
+            className="chat-send-button"
+            value='Send Message'
+          />
+        </div>
+      </form>
     </div>
   );
 };
