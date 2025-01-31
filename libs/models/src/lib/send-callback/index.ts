@@ -1,1 +1,1 @@
-export { SendCallback } from './send-callback.type';
+export * from './send-callback.type';

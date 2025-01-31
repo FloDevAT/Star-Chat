@@ -1,1 +1,1 @@
-export { CloseCallback } from './close-callback.type';
+export * from './close-callback.type';
