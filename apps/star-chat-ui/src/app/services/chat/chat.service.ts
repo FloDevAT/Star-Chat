@@ -1,15 +1,15 @@
 import { RawData } from 'ws';
-import { ChatMessage, MessageType, UserMessage } from '@star-chat/models';
+import { ChatMessage, MessageType, CloseCallback, SendCallback, UserMessage } from '@star-chat/models';
 
 export class ChatService {
   private static instance: ChatService;
   private ws: WebSocket;
 
-  private sendHandler: (msg: ChatMessage) => void = () => {
+  private sendHandler: SendCallback = () => {
     throw new Error('NOT IMPLEMENTED');
   };
 
-  protected closeHandler: () => void = () => {
+  protected closeHandler: CloseCallback  = () => {
     throw new Error('NOT IMPLEMENTED');
   };
 
@@ -47,15 +47,14 @@ export class ChatService {
     this.closeHandler();
   }
 
-
   public setSendHandler(
-    handler: (msg: ChatMessage) => void
+    handler: SendCallback
   ) {
     this.sendHandler = handler;
   }
 
   public setCloseHandler(
-    handler: () => void
+    handler: CloseCallback
   ) {
     this.closeHandler = handler;
   }
