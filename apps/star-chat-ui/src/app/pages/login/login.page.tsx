@@ -1,11 +1,12 @@
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent } from 'react';
 import { AuthService } from '../../services';
 import './login.page.scss';
 import { useNavigate } from 'react-router-dom';
 import { ChatService } from '../../services/chat/chat.service';
+import { useChatStore } from '../../store';
 
 export const LoginPage: React.FC = () => {
-  const [username, setUsername] = useState<string>('');
+  const { username, setUsername } = useChatStore();
   const nav = useNavigate();
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {

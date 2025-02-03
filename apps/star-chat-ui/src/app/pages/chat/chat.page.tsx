@@ -1,48 +1,43 @@
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useEffect, useState } from 'react';
 import { ChatMessage } from '@star-chat/models';
 import { ChatService } from '../../services/chat/chat.service';
 import { ChatMessageBubble } from '../../components';
 import './chat.page.scss';
+import { useChatStore } from '../../store';
 import { useNavigate } from 'react-router-dom';
 
 export const ChatPage: React.FC = () => {
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const { messages, addMessage, username } = useChatStore();
   const [typedMessage, setTypedMessage] = useState<string>('');
   const nav = useNavigate();
 
-  const onAddMessage = (msg: ChatMessage) => {
-    setMessages([...messages, msg]);
-  };
-
-  const onDisconnect = () => {
-    nav('/');
-  }
-
   const chatService = ChatService.getInstance();
-  chatService.setSendHandler(onAddMessage);
-  chatService.setCloseHandler(onDisconnect);
 
   const onSendMessage = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const msg: ChatMessage = {
-      username: 'florian',
+      username: username,
       content: typedMessage
     };
 
-    setMessages([
-      ...messages, msg
-    ]);
+    addMessage(msg);
 
     chatService.sendMessage(typedMessage);
     setTypedMessage('');
   };
 
+  useEffect(() => {
+    if (username === '') {
+      nav('/');
+    }
+  }, [nav, username]);
+
   return (
     <div className="chat-container">
       <div className="chat-messages">
         {messages.map((msg, i) => (
-          <ChatMessageBubble key={i} msg={msg} currentUser={'florian'} />
+          <ChatMessageBubble key={i} msg={msg} currentUser={username} />
         ))}
       </div>
 
