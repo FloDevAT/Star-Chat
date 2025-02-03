@@ -1,1 +1,0 @@
-export type CloseCallback = () => void;

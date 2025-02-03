@@ -1,17 +1,15 @@
 import { RawData } from 'ws';
-import { ChatMessage, MessageType, CloseCallback, SendCallback, UserMessage } from '@star-chat/models';
+import { ChatMessage, MessageType, UserMessage, ChatStore } from '@star-chat/models';
+import { useChatStore } from '../../store';
 
 export class ChatService {
   private static instance: ChatService;
   private ws: WebSocket;
+  private state: ChatStore;
 
-  private sendHandler: SendCallback = () => {
-    throw new Error('NOT IMPLEMENTED');
-  };
-
-  protected closeHandler: CloseCallback  = () => {
-    throw new Error('NOT IMPLEMENTED');
-  };
+  constructor() {
+    this.state = useChatStore.getState();
+  }
 
   public connect(token: string) {
     console.log(token);
@@ -40,23 +38,12 @@ export class ChatService {
   private onReceiveMessage(msg: RawData) {
     const msgStr = msg.toString();
     const chatMessage: ChatMessage = JSON.parse(msgStr);
-    this.sendHandler(chatMessage);
+    this.state.addMessage(chatMessage);
   }
 
   private onSessionClose() {
-    this.closeHandler();
-  }
-
-  public setSendHandler(
-    handler: SendCallback
-  ) {
-    this.sendHandler = handler;
-  }
-
-  public setCloseHandler(
-    handler: CloseCallback
-  ) {
-    this.closeHandler = handler;
+    console.error('CONNECTION TO SERVER LOST!');
+    window.location.href = '/';
   }
 
   public static getInstance(): ChatService {
